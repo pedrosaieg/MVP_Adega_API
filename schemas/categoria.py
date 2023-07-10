@@ -9,22 +9,18 @@ class CategoriaSchema(BaseModel):
     """ Define como uma nova categoria a ser inserida deve ser representada
     """
 
-    nome:str = "XPTO"
-    ramo_atuacao:str = "Óleo e gás"
-    sobre:str = "Categoria que atua no ramo de upstream"
-    link:str = "www.xpto.com.br"
-    tamanho:int = 200
+    nome:str = "Bordeaux"
+    pais:str = "França"
+    descricao:str = "Terroir de clima temperado"
 
 
 class CategoriaViewSchema(BaseModel):
     """ Define como uma categoria será retornada.
     """
     id: int = 1
-    nome:str = "XPTO"
-    ramo_atuacao:str = "Óleo e gás"
-    sobre:str = "Categoria que atua no ramo de upstream"
-    link:str = "www.xpto.com.br"
-    tamanho:int = 200
+    nome:str = "Sul da França"
+    pais:str = "França"
+    descricao:str = "Terroir de clima temperado"
     vinhos:List[VinhoSchema]
 
 class CategoriaBuscaSchema(BaseModel):
@@ -44,11 +40,9 @@ class CategoriaEditSchema(BaseModel):
     """ Define como uma categoria será editada.
     """
     id:int = 1
-    nome:str = "XPTO"
-    ramo_atuacao:str = "Óleo e gás"
-    sobre:str = "Categoria que atua no ramo de upstream"
-    link:str = "www.xpto.com.br"
-    tamanho:int = 200
+    nome:str = "Sul da França"
+    pais:str = "França"
+    descricao:str = "Terroir de clima temperado"
 
 class ListagemCategoriasSchema(BaseModel):
     """ Define como a lista de categorias será retornada.
@@ -62,17 +56,12 @@ def apresenta_categoria(categoria: Categoria):
     return {
         "id": categoria.id,
         "nome": categoria.nome,
-        "ramo_atuacao": categoria.ramo_atuacao,
-        "sobre": categoria.sobre,
-        "link": categoria.link,
-        "tamanho": categoria.tamanho,
+        "pais": categoria.pais,
+        "descricao": categoria.descricao,
         "vinhos": [{"id": c.id, 
-                   "cargo": c.cargo, 
-                   "conhecimentos": c.conhecimentos, 
-                   "descricao": c.descricao, 
-                   "responsabilidades": c.responsabilidades, 
-                   "modalidade_contrato" : c.modalidade_contrato, 
-                   "modalidade_trabalho" : c.modalidade_trabalho} for c in categoria.vinhos]
+                   "nome": c.nome, 
+                   "uva": c.uva, 
+                   "descricao": c.descricao} for c in categoria.vinhos]
     }
 
 def apresenta_categorias(categorias: List[Categoria]):
@@ -84,10 +73,8 @@ def apresenta_categorias(categorias: List[Categoria]):
         result.append({
             "id": categoria.id,
             "nome": categoria.nome,
-            "ramo_atuacao": categoria.ramo_atuacao,
-            "sobre": categoria.sobre,
-            "link": categoria.link,
-            "tamanho": categoria.tamanho,
+            "pais": categoria.pais,
+            "descricao": categoria.descricao,
             "vinhos" : len(categoria.vinhos)
         })
 

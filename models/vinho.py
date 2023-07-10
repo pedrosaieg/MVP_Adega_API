@@ -9,46 +9,31 @@ class Vinho(Base):
     __tablename__ = 'vinho'
 
     id = Column("pk_vinho", Integer, primary_key=True)
-    cargo = Column(String(140))
-    modalidade_contrato = Column(String(30))
-    modalidade_trabalho = Column(String(30))
+    nome = Column(String(140))
+    uva = Column(String(30))
     descricao = Column(String(1000))
-    responsabilidades = Column(String(1000))
-    conhecimentos = Column(String(1000))
 
     data_insercao = Column(DateTime, default=datetime.now())
 
     categoria_id = Column(Integer, ForeignKey("categoria.pk_categoria"), nullable=False)
 
-    def __init__(self, cargo:str, modalidade_contrato:str, modalidade_trabalho:str, descricao:str, responsabilidades:str, conhecimentos:str, categoria_id:int,
+    def __init__(self, nome:str, uva:str, descricao:str, categoria_id:int,
                  data_insercao:Union[DateTime, None] = None):
         """
         Cria um Vinho
 
         Argumentos:
-            cargo: nome do cargo
-            modalidade_contrato: PJ ou CLT
-            modalidade_trabalho: presencial, remoto ou híbrido
-            categoria: nome da categoria
-            descricao: descricao da vinho
-            responsabilidades: responsabilidades que a pessoa contratada irá assumir
-            conhecimentos: conhecimentos necessários/desejáveis para a vinho
-            data_insercao: data de quando o produto foi inserido à base
+            nome: nome do vinho
+            uva: nome das uvas presentes no vinho
+            descricao: descricao das qualidades do vinho
+            data_insercao: data de quando o vinho foi inserido à base
         """
-        self.cargo = cargo
-        self.modalidade_contrato = modalidade_contrato
-        self.modalidade_trabalho = modalidade_trabalho
-        self.categoria_id = categoria_id
+        self.nome = nome
+        self.uva = uva
         self.descricao = descricao
-        self.responsabilidades = responsabilidades
-        self.conhecimentos = conhecimentos
+        self.categoria_id = categoria_id
 
         # se não for informada, será o data exata da inserção no banco
         if data_insercao:
             self.data_insercao = data_insercao
-
- #   def adiciona_comentario(self, comentario:Comentario):
-  #      """ Adiciona um novo comentário ao Produto
-   #     """
-    #    self.comentarios.append(comentario)
 

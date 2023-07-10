@@ -6,25 +6,19 @@ from models.vinho import Vinho
 class VinhoSchema(BaseModel):
     """ Define como uma nova vinho a ser inserida deve ser representada
     """
-    cargo:str = "Analista"
-    modalidade_contrato:str = "PJ"
-    modalidade_trabalho:str = "Presencial"
+    nome:str = "Barca Velha"
+    uva:str = "Touriga Nacional"
+    descricao:str = "Vinho encorpado"
     categoria_id:int = 1
-    descricao:str = "Planejar"
-    responsabilidades:str = "Propor"
-    conhecimentos:str = "Bom"
 
 class VinhoViewSchema(BaseModel):
     """ Define como uma vinho será retornada.
     """
     id: int = 1
-    cargo: str = "Analista"
-    modalidade_contrato:str = "CLT"
-    modalidade_trabalho:str = "Presencial"
+    nome: str = "Barca Velha"
+    uva:str = "Touriga Nacional"
+    descricao:str = "Vinho encorpado"
     categoria_id:int = 1
-    descricao:str = "Planejar"
-    responsabilidades:str = "Propor estratégias e alinhar/formalizar objetivos de performance junto aos clientes; Elaborar relatórios internos e externos de marketing digital"
-    conhecimentos:str = "Bom raciocínio lógico; Perfil analítico e com foco em resultados; Habilidade de comunicação e relacionamento"
 
 class VinhoBuscaSchema(BaseModel):
     """ Define como deve ser a estrutura que representa a busca. Que será
@@ -50,13 +44,10 @@ def apresenta_vinho(vinho: Vinho):
     """
     return {
         "id": vinho.id,
-        "cargo": vinho.cargo,
-        "modalidade_contrato": vinho.modalidade_contrato,
-        "modalidade_trabalho": vinho.modalidade_trabalho,
-        "categoria_id": vinho.categoria_id,
+        "nome": vinho.nome,
+        "uva": vinho.uva,
         "descricao": vinho.descricao,
-        "responsabilidades": vinho.responsabilidades,
-        "conhecimentos": vinho.conhecimentos
+        "categoria_id": vinho.categoria_id
     }
 
 def apresenta_vinhos(vinhos: List[Vinho]):
@@ -67,13 +58,10 @@ def apresenta_vinhos(vinhos: List[Vinho]):
     for vinho in vinhos:
         result.append({
         "id": vinho.id,
-        "cargo": vinho.cargo,
-        "modalidade_contrato": vinho.modalidade_contrato,
-        "modalidade_trabalho": vinho.modalidade_trabalho,
-        "categoria_id": vinho.categoria_id,
+        "nome": vinho.nome,
+        "uva": vinho.uva,
         "descricao": vinho.descricao,
-        "responsabilidades": vinho.responsabilidades,
-        "conhecimentos": vinho.conhecimentos
+        "categoria_id": vinho.categoria_id
         })
 
     return {"vinhos": result}

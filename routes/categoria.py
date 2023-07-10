@@ -24,10 +24,8 @@ def add_categoria(form: CategoriaSchema):
     """
     categoria = Categoria(
         nome = form.nome,
-        ramo_atuacao= form.ramo_atuacao,
-        sobre= form.sobre,
-        link= form.link,
-        tamanho= form.tamanho
+        pais = form.pais,
+        descricao = form.descricao
     )
 
     logger.debug(f"Adicionando categoria: '{categoria.nome}'")
@@ -133,7 +131,7 @@ def edit_categoria(form: CategoriaEditSchema):
     # criando conexão com a base
     session = Session()
     # fazendo a busca
-    categoria = session.query(Categoria).filter(Categoria.id == categoria_id).update({"nome":form.nome, "ramo_atuacao": form.ramo_atuacao, "sobre": form.sobre, "link": form.link, "tamanho": form.tamanho})
+    categoria = session.query(Categoria).filter(Categoria.id == categoria_id).update({"nome":form.nome, "pais": form.pais, "descricao": form.descricao})
 
     session.commit()
 

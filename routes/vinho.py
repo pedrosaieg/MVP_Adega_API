@@ -18,9 +18,9 @@ vinho_tag = Tag(name="Vinho", description="Adição, visualização e remoção 
 @app.post('/vinho', tags=[vinho_tag],
           responses={"200": VinhoViewSchema, "409": ErrorSchema, "400": ErrorSchema})
 def add_vinho(form: VinhoSchema):
-    """Adiciona uma nova Vinho à base de dados
+    """Adiciona um novo vinho à base de dados
 
-    Retorna uma representação das vinhos e categorias associadas.
+    Retorna uma representação dos vinhos e categorias associadas.
     """
     categoria_id = form.categoria_id
     session = Session()
@@ -29,19 +29,16 @@ def add_vinho(form: VinhoSchema):
     if not categoria:
         # se categoria não encontrada
         error_msg = "Categoria não encontrada na base :/"
-        logger.warning(f"Erro ao criar vinho à categoria'{categoria_id}', {error_msg}")
+        logger.warning(f"Erro ao associar vinho à categoria'{categoria_id}', {error_msg}")
         return {"mesage": error_msg}, 404
     print(form)
     vinho = Vinho(
-       cargo = form.cargo,
-       modalidade_contrato = form.modalidade_contrato,
-       modalidade_trabalho = form.modalidade_trabalho,
-       categoria_id = form.categoria_id,
+       nome = form.nome,
+       uva = form.uva,
        descricao = form.descricao,
-       responsabilidades = form.responsabilidades,
-       conhecimentos = form.conhecimentos)
+       categoria_id = form.categoria_id)
     
-    logger.debug(f"Adicionando vinho: '{vinho.cargo}'")
+    logger.debug(f"Adicionando vinho: '{vinho.nome}'")
     try:
         # criando conexão com a base
         session = Session()
@@ -49,18 +46,18 @@ def add_vinho(form: VinhoSchema):
         session.add(vinho)
         # efetivando o camando de adição de novo item na tabela
         session.commit()
-        logger.debug(f"Adicionada vinho: '{vinho.cargo}'")
+        logger.debug(f"Adicionada vinho: '{vinho.nome}'")
         return apresenta_vinho(vinho), 200
 
     except IntegrityError as e:
-        error_msg = f"Ocorreu um erro de integridade ao tentar adicionar a vinho '{vinho.cargo}' à categoria '{categoria_id}' :/"
-        logger.warning(f"Erro ao adicionar vinho '{vinho.cargo}', {error_msg}")
+        error_msg = f"Ocorreu um erro de integridade ao tentar adicionar o vinho '{vinho.nome}' à categoria '{categoria_id}' :/"
+        logger.warning(f"Erro ao adicionar vinho '{vinho.nome}', {error_msg}")
         return {"mesage": error_msg}, 409
 
     except Exception as e:
-        # caso um erro fora do previsto
+        # caso um erro fora do previsto ocorra
         error_msg = "Não foi possível salvar novo item :/"
-        logger.warning(f"Erro ao adicionar vinho '{vinho.cargo}', {error_msg}")
+        logger.warning(f"Erro ao adicionar vinho '{vinho.nome}', {error_msg}")
         return {"mesage": error_msg}, 400
     
 @app.get('/vinho', tags=[vinho_tag],
@@ -124,6 +121,6 @@ def del_vinho(query: VinhoBuscaSchema):
         error_msg = "Vinho não encontrada na base."
         return {"message": error_msg}, 404
     else:
-        logger.debug(f'%Vinho {vinho_id} removida.')
-        return {"message": f"Vinho {vinho_id} removida."}, 200
+        logger.debug(f'%Vinho {vinho_id} removido.')
+        return {"message": f"Vinho {vinho_id} removido."}, 200
 
