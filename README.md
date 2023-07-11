@@ -1,6 +1,6 @@
 # MVP - Adega API
 
-Este pequeno projeto faz parte da entrega do MVP da disciplina **Desenvolvimento Front End Avançado** 
+Este pequeno projeto faz parte da entrega do MVP da disciplina **Desenvolvimento Front-end Avançado** 
 
 ---
 ## Como executar 
